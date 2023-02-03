@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Screen Width Test</title>
+
+	<meta name="author" content="codelog - codelogg.com for www.tradeco.com">
+	<link rel="autor" type="text/plain" href="http://www.tradecoindustrial.com.mx/humans.txt" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" /> -->
+	
+
+	<style type="text/css">
+		
+		body{
+			background-color: #fff;
+		}
+
+		@media screen and (min-width: 1900px){
+			body{
+				background: #444;
+			}
+		}
+
+		@media screen and (max-width: 1280px){
+			body{
+				background: red;
+			}
+		}
+
+		@media screen and (max-width: 1024px){
+			body{
+				background: green;
+			}
+		}
+
+		@media screen and (max-width: 768px){
+			body{
+				background: blue;
+			}
+		}
+
+		@media screen and (max-width: 600px){
+			body{
+				background: cyan;
+			}
+		}
+
+		@media screen and (max-width: 480px){
+			body{
+				background: magenta;
+			}
+		}
+
+		@media screen and (max-width: 320px){
+			body{
+				background: yellow;
+			}
+		}
+
+	</style>
+
+</head>
+<body>
+
+	<div class="box">
+		<div class="width">
+			Venta width / ancho: <b><span id="width"></span> px.</b>
+		</div>
+		<div id="height">
+			Ventana height / alto: <b><span></span> px.</b>
+		</div>
+	</div>
+
+
+
+	<script type="text/javascript">
+	var agent = navigator.userAgent.toLowerCase();
+	var scrWidth = screen.width;
+	var scrHeight = screen.height;
+	// The document.documentElement dimensions seem to be identical to
+	// the screen dimensions on all the mobile browsers I've tested so far
+	var elemWidth = document.documentElement.clientWidth;
+	var elemHeight = document.documentElement.clientHeight;
+	// We need to eliminate Symbian, Series 60, Windows Mobile and Blackberry
+	// browsers for this quick and dirty check. This can be done with the user agent.
+	var otherBrowser = (agent.indexOf("series60") != -1) || (agent.indexOf("symbian") != -1) || (agent.indexOf("windows ce") != -1) || (agent.indexOf("blackberry") != -1);
+	// If the screen orientation is defined we are in a modern mobile OS
+	var mobileOS = typeof orientation != 'undefined' ? true : false;
+	// If touch events are defined we are in a modern touch screen OS
+	var touchOS = ('ontouchstart' in document.documentElement) ? true : false;
+	// iPhone and iPad can be reliably identified with the navigator.platform
+	// string, which is currently only available on these devices.
+	var iOS = (navigator.platform.indexOf("iPhone") != -1) ||
+			(navigator.platform.indexOf("iPad") != -1) ? true : false;
+	// If the user agent string contains "android" then it's Android. If it
+	// doesn't but it's not another browser, not an iOS device and we're in
+	// a mobile and touch OS then we can be 99% certain that it's Android.
+	var android = (agent.indexOf("android") != -1) || (!iOS && !otherBrowser && touchOS && mobileOS) ? true : false;
+
+	document.write("<p>Pantalla width / ancho:</b> " + scrWidth +"px<br />" +
+					"Pantalla height / alto: " + scrHeight + "px<br /><br />" +
+					"<b>Document element width:</b> " + elemWidth +"px<br />" +
+					"<b>Document element height:</b> " + elemHeight + "px<br /><br />" +
+					"<b>iOS device:</b> "+iOS+"<br /><br />"+
+					"<b>Mobile OS:</b> "+mobileOS+"<br /><br />"+
+					"<b>Touch OS:</b> "+touchOS+"<br /><br />"+
+					"<b>Android device:</b> "+android+"</p>" +
+					"<p><b>User agent string:</b> "+navigator.userAgent+"</p><br />"
+					);
+	</script>
+
+	<div style="text-align: center;">
+		
+		<p>min-width: 1900px  #444</p>
+		<p>1281 - 1899  color: #fff</p>
+		<p>max-width: 1280px red</p>
+		<p>max-width: 1024px  green</p>
+		<p>max-width: 768px blue</p>
+		<p>max-width: 600px  cyan</p>
+		<p>max-width: 480px  magenta</p>
+		<p>max-width: 320px   yellow</p>
+	</div>
+
+
+	<script>
+		let screenWidth 	= document.getElementById('width');
+		let screenHeight 	= document.querySelector("#height span");
+
+		   
+		//  ON LOAD PAGE
+		window.onload = function() {
+			screenWidth.innerHTML 	= window.innerWidth;
+			screenHeight.innerHTML 	= window.innerHeight;
+		};
+
+		//  ON RESIZE PAGE
+		window.onresize = function() {
+			screenWidth.innerHTML 	= window.innerWidth; 
+			screenHeight.innerHTML 	= window.innerHeight;
+		};
+	</script>
+
+</body>
+</html>
