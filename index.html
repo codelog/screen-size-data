@@ -1,146 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<meta charset="utf-8" />
-	<title>Screen Width Test</title>
-
-	<meta name="author" content="codelog - codelogg.com for www.tradeco.com">
-	<link rel="autor" type="text/plain" href="http://www.tradecoindustrial.com.mx/humans.txt" />
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" /> -->
+	<title>Screen Size and Data by codelog | by Alex Manriquez</title>
+
+	<meta name="description" content="">
+	<meta name="author" content="codelog - codelogg.com by Alex Manriquez">
+	<!-- <link rel="autor" type="text/plain" href="http://www.tradecoindustrial.com.mx/humans.txt" /> -->
+	
+	<script src="https://cdn.tailwindcss.com"></script>
+
 	
 
-	<style type="text/css">
-		
-		body{
-			background-color: #fff;
-		}
-
-		@media screen and (min-width: 1900px){
-			body{
-				background: #444;
-			}
-		}
-
-		@media screen and (max-width: 1280px){
-			body{
-				background: red;
-			}
-		}
-
-		@media screen and (max-width: 1024px){
-			body{
-				background: green;
-			}
-		}
-
-		@media screen and (max-width: 768px){
-			body{
-				background: blue;
-			}
-		}
-
-		@media screen and (max-width: 600px){
-			body{
-				background: cyan;
-			}
-		}
-
-		@media screen and (max-width: 480px){
-			body{
-				background: magenta;
-			}
-		}
-
-		@media screen and (max-width: 320px){
-			body{
-				background: yellow;
-			}
-		}
-
-	</style>
-
 </head>
-<body>
+<body class="bg-slate-900 text-slate-300">
 
-	<div class="box">
-		<div class="width">
-			Venta width / ancho: <b><span id="width"></span> px.</b>
+	<!-- 
+		HACER MEDIDAS EN COLUMNAS
+		Y PONER LAS DESCRIPCIONES O EL DATA, 
+		COLOCAR UNA PEQUEÑA MEDIA QUERY CON COLOR Y CONTENT Y QUE ESTE DIGA LA RESOLUCIÓN EN LA QUE ESTAS SE MUEVA DINAMICAMENTE 
+	-->
+
+	<div class="p-5 w-full">
+
+		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+			<div class="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+				<p class="text-slate-400 text-sm">Document element on load: &nbsp;&nbsp;<b class="text-slate-400"><span id="documentHeightLoad"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">Document element resize live: &nbsp;&nbsp;<b class="text-slate-200"><span id="documentWidth"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">Document element height live: &nbsp;&nbsp;<b class="text-slate-200"><span id="documentHeight"></span> px</b></p>
+			</div>
+	
+			<div class="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+				<p class="text-slate-400 text-sm">Monitor screen width: &nbsp;&nbsp;<b class="text-slate-200"><span id="screenWidth"></span> px</b></p>
+				<p class="text-slate-400 mt-2 text-sm">Monitor screen height: &nbsp;&nbsp;<b class="text-slate-200"><span id="screenHeight"></span> px</b></p>
+				<p class="text-slate-400 mt-2 text-sm">Pixel Ratio: &nbsp;&nbsp; <b><span class="text-slate-200" id="isRetina"></span></b></p>
+			</div>
+
+			<div class="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+				<p class="text-slate-400 text-sm">Mobile device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isMobile"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">Touch device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isTouch"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">iOS device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isiOS"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">Android device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isAndroid"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">Other device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isOther"></span></b></p>
+				
+			</div>
+
+			<div class="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+				<p class="text-slate-400  text-sm">Device: &nbsp;&nbsp; <b><span class="text-slate-200" id="device"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">OS: &nbsp;&nbsp; <b><span class="text-slate-200" id="device"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">Browser: &nbsp;&nbsp; <b><span class="text-slate-200" id="device"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">User agent browser: 
+					<b><span class="text-slate-200" id="agentBrowser"></span></b>
+				</p>
+
+                <p class="text-slate-400 mt-2 text-sm">TEST: &nbsp;&nbsp; <b><span class="text-slate-200" id="test"></span></b></p>
+			</div>
+
 		</div>
-		<div id="height">
-			Ventana height / alto: <b><span></span> px.</b>
-		</div>
-	</div>
-
-
-
-	<script type="text/javascript">
-	var agent = navigator.userAgent.toLowerCase();
-	var scrWidth = screen.width;
-	var scrHeight = screen.height;
-	// The document.documentElement dimensions seem to be identical to
-	// the screen dimensions on all the mobile browsers I've tested so far
-	var elemWidth = document.documentElement.clientWidth;
-	var elemHeight = document.documentElement.clientHeight;
-	// We need to eliminate Symbian, Series 60, Windows Mobile and Blackberry
-	// browsers for this quick and dirty check. This can be done with the user agent.
-	var otherBrowser = (agent.indexOf("series60") != -1) || (agent.indexOf("symbian") != -1) || (agent.indexOf("windows ce") != -1) || (agent.indexOf("blackberry") != -1);
-	// If the screen orientation is defined we are in a modern mobile OS
-	var mobileOS = typeof orientation != 'undefined' ? true : false;
-	// If touch events are defined we are in a modern touch screen OS
-	var touchOS = ('ontouchstart' in document.documentElement) ? true : false;
-	// iPhone and iPad can be reliably identified with the navigator.platform
-	// string, which is currently only available on these devices.
-	var iOS = (navigator.platform.indexOf("iPhone") != -1) ||
-			(navigator.platform.indexOf("iPad") != -1) ? true : false;
-	// If the user agent string contains "android" then it's Android. If it
-	// doesn't but it's not another browser, not an iOS device and we're in
-	// a mobile and touch OS then we can be 99% certain that it's Android.
-	var android = (agent.indexOf("android") != -1) || (!iOS && !otherBrowser && touchOS && mobileOS) ? true : false;
-
-	document.write("<p>Pantalla width / ancho:</b> " + scrWidth +"px<br />" +
-					"Pantalla height / alto: " + scrHeight + "px<br /><br />" +
-					"<b>Document element width:</b> " + elemWidth +"px<br />" +
-					"<b>Document element height:</b> " + elemHeight + "px<br /><br />" +
-					"<b>iOS device:</b> "+iOS+"<br /><br />"+
-					"<b>Mobile OS:</b> "+mobileOS+"<br /><br />"+
-					"<b>Touch OS:</b> "+touchOS+"<br /><br />"+
-					"<b>Android device:</b> "+android+"</p>" +
-					"<p><b>User agent string:</b> "+navigator.userAgent+"</p><br />"
-					);
-	</script>
-
-	<div style="text-align: center;">
 		
-		<p>min-width: 1900px  #444</p>
-		<p>1281 - 1899  color: #fff</p>
-		<p>max-width: 1280px red</p>
-		<p>max-width: 1024px  green</p>
-		<p>max-width: 768px blue</p>
-		<p>max-width: 600px  cyan</p>
-		<p>max-width: 480px  magenta</p>
-		<p>max-width: 320px   yellow</p>
-	</div>
 
+	</div>  
+
+
+	
+
+
+
+
+	
 
 	<script>
-		let screenWidth 	= document.getElementById('width');
-		let screenHeight 	= document.querySelector("#height span");
+		const numberFormatter 	= Intl.NumberFormat('en-US');
+		let agent				= navigator.userAgent.toLowerCase();
+			documentWidth 		= document.getElementById('documentWidth');
+			documentHeight 		= document.querySelector("#documentHeight");
+			screenWidth 		= screen.width;
+			screenHeight 		= screen.height;
+			mobileOS 			= typeof orientation != 'undefined' ? true : false;
+			touchOS 			= ('ontouchstart' in document.documentElement) ? true : false;
+			otherBrowser 		= (agent.indexOf("series60") != -1) || (agent.indexOf("symbian") != -1) || (agent.indexOf("windows ce") != -1) || (agent.indexOf("blackberry") != -1);
+			iOS 				= (navigator.platform.indexOf("iPhone") != -1) || (navigator.platform.indexOf("iPad") != -1) ? true : false;
+			android 			= (agent.indexOf("android") != -1) || (!iOS && !otherBrowser && touchOS && mobileOS) ? true : false;
+			isRetina 			= window.devicePixelRatio;
+			device				= navigator.userAgent;  // navigator.userAgentData.platform  // navigator.appVersion  //navigator.maxTouchPoints
+			
 
-		   
+			
 		//  ON LOAD PAGE
 		window.onload = function() {
-			screenWidth.innerHTML 	= window.innerWidth;
-			screenHeight.innerHTML 	= window.innerHeight;
+			documentWidth.innerHTML 	= numberFormatter.format(window.innerWidth) + `</b> x <b>` + numberFormatter.format(window.innerHeight);
+			documentHeight.innerHTML 	= numberFormatter.format(window.innerHeight);
+			document.querySelector("#documentHeightLoad").textContent = numberFormatter.format(window.innerWidth) + ` x ` + numberFormatter.format(window.innerHeight);
+            
+
+			document.querySelector("#screenWidth").innerHTML = numberFormatter.format(screenWidth);
+			document.querySelector("#screenHeight").textContent = numberFormatter.format(screenHeight);
+
+			document.querySelector("#isMobile").textContent = mobileOS;
+			document.querySelector("#isTouch").textContent = touchOS;
+			document.querySelector("#isiOS").textContent = iOS;
+			document.querySelector("#isAndroid").textContent = android;
+			document.querySelector("#isOther").textContent = otherBrowser;
+			document.querySelector("#isRetina").textContent = isRetina + ` |- ` + isRetinaDisplay() + ` isHighDensity ` + isHighDensity() + ` isRetina ` + isRetina();
+
+			document.querySelector("#device").textContent = device;
+			document.querySelector("#agentBrowser").textContent = navigator.userAgent;
+
+            document.querySelector("#test").textContent = iOSssss() + ` version:` + /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+			
+			
+			//  IPHONE OR IPAD
+			if ( (navigator.userAgent.match(/iPhone/i)) ) {
+				document.querySelector("#isiOS").textContent = `Yes, it's an iPhone`;
+			} else if ( (navigator.userAgent.match(/iPod/i)) ) {
+				document.querySelector("#isiOS").textContent = `Yes, it's an iPod`;
+			} else if ( (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0) || navigator.platform === 'iPad' ) {
+				document.querySelector("#isiOS").textContent = `Yes, it's an iPad`;
+			} else {
+
+			}
+
+			//  RETINA
+			// if ( window.devicePixelRatio > 1 ) {
+			// 	document.querySelector("#isRetina").textContent = isRetina + `  is Retina Display`;
+			// }
+            function isRetinaDisplay() {
+                if (window.matchMedia) {
+                    var mq = window.matchMedia("only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen  and (min-device-pixel-ratio: 1.3), only screen and (min-resolution: 1.3dppx)");
+                    return (mq && mq.matches || (window.devicePixelRatio > 1));
+                }
+            }
+
+            function isHighDensity(){
+                return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 124dpi), only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 48.8dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (min-device-pixel-ratio: 1.3)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 1.3));
+            }
+
+
+            function isRetina(){
+                return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-resolution: 75.6dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)').matches)) || (window.devicePixelRatio && window.devicePixelRatio >= 2)) && /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+            }
+
 		};
 
+		
 		//  ON RESIZE PAGE
 		window.onresize = function() {
-			screenWidth.innerHTML 	= window.innerWidth; 
-			screenHeight.innerHTML 	= window.innerHeight;
+			documentWidth.innerHTML 	= numberFormatter.format(window.innerWidth) + `</b> x <b>` + numberFormatter.format(window.innerHeight); 
+			documentHeight.innerHTML 	= numberFormatter.format(window.innerHeight);
+
+
 		};
-	</script>
+
+
+        function iOSssss() {
+        return [
+            'iPad Simulator',
+            'iPhone Simulator',
+            'iPod Simulator',
+            'iPad',
+            'iPhone',
+            'iPod'
+        ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+        }
+
+
+        
+
+        console.log(iOSssss());
+        
+
+
+
+		(function (window) {
+    {
+        var unknown = '-';
+
+        // screen
+        var screenSize = '';
+        if (screen.width) {
+            width = (screen.width) ? screen.width : '';
+            height = (screen.height) ? screen.height : '';
+            screenSize += '' + width + " x " + height;
+        }
+
+        // browser
+        var nVer = navigator.appVersion;
+        var nAgt = navigator.userAgent;
+        var browser = navigator.appName;
+        var version = '' + parseFloat(navigator.appVersion);
+        var majorVersion = parseInt(navigator.appVersion, 10);
+        var nameOffset, verOffset, ix;
+
+        // Opera
+        if ((verOffset = nAgt.indexOf('Opera')) != -1) {
+            browser = 'Opera';
+            version = nAgt.substring(verOffset + 6);
+            if ((verOffset = nAgt.indexOf('Version')) != -1) {
+                version = nAgt.substring(verOffset + 8);
+            }
+        }
+        // Opera Next
+        if ((verOffset = nAgt.indexOf('OPR')) != -1) {
+            browser = 'Opera';
+            version = nAgt.substring(verOffset + 4);
+        }
+        // Legacy Edge
+        else if ((verOffset = nAgt.indexOf('Edge')) != -1) {
+            browser = 'Microsoft Legacy Edge';
+            version = nAgt.substring(verOffset + 5);
+        } 
+        // Edge (Chromium)
+        else if ((verOffset = nAgt.indexOf('Edg')) != -1) {
+            browser = 'Microsoft Edge';
+            version = nAgt.substring(verOffset + 4);
+        }
+        // MSIE
+        else if ((verOffset = nAgt.indexOf('MSIE')) != -1) {
+            browser = 'Microsoft Internet Explorer';
+            version = nAgt.substring(verOffset + 5);
+        }
+        // Chrome
+        else if ((verOffset = nAgt.indexOf('Chrome')) != -1) {
+            browser = 'Chrome';
+            version = nAgt.substring(verOffset + 7);
+        }
+        // Safari
+        else if ((verOffset = nAgt.indexOf('Safari')) != -1) {
+            browser = 'Safari';
+            version = nAgt.substring(verOffset + 7);
+            if ((verOffset = nAgt.indexOf('Version')) != -1) {
+                version = nAgt.substring(verOffset + 8);
+            }
+        }
+        // Firefox
+        else if ((verOffset = nAgt.indexOf('Firefox')) != -1) {
+            browser = 'Firefox';
+            version = nAgt.substring(verOffset + 8);
+        }
+        // MSIE 11+
+        else if (nAgt.indexOf('Trident/') != -1) {
+            browser = 'Microsoft Internet Explorer';
+            version = nAgt.substring(nAgt.indexOf('rv:') + 3);
+        }
+        // Other browsers
+        else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) < (verOffset = nAgt.lastIndexOf('/'))) {
+            browser = nAgt.substring(nameOffset, verOffset);
+            version = nAgt.substring(verOffset + 1);
+            if (browser.toLowerCase() == browser.toUpperCase()) {
+                browser = navigator.appName;
+            }
+        }
+        // trim the version string
+        if ((ix = version.indexOf(';')) != -1) version = version.substring(0, ix);
+        if ((ix = version.indexOf(' ')) != -1) version = version.substring(0, ix);
+        if ((ix = version.indexOf(')')) != -1) version = version.substring(0, ix);
+
+        majorVersion = parseInt('' + version, 10);
+        if (isNaN(majorVersion)) {
+            version = '' + parseFloat(navigator.appVersion);
+            majorVersion = parseInt(navigator.appVersion, 10);
+        }
+
+        // mobile version
+        var mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
+
+        // cookie
+        var cookieEnabled = (navigator.cookieEnabled) ? true : false;
+
+        if (typeof navigator.cookieEnabled == 'undefined' && !cookieEnabled) {
+            document.cookie = 'testcookie';
+            cookieEnabled = (document.cookie.indexOf('testcookie') != -1) ? true : false;
+        }
+
+        // system
+        var os = unknown;
+        var clientStrings = [
+            {s:'Windows 10', r:/(Windows 10.0|Windows NT 10.0)/},
+            {s:'Windows 8.1', r:/(Windows 8.1|Windows NT 6.3)/},
+            {s:'Windows 8', r:/(Windows 8|Windows NT 6.2)/},
+            {s:'Windows 7', r:/(Windows 7|Windows NT 6.1)/},
+            {s:'Windows Vista', r:/Windows NT 6.0/},
+            {s:'Windows Server 2003', r:/Windows NT 5.2/},
+            {s:'Windows XP', r:/(Windows NT 5.1|Windows XP)/},
+            {s:'Windows 2000', r:/(Windows NT 5.0|Windows 2000)/},
+            {s:'Windows ME', r:/(Win 9x 4.90|Windows ME)/},
+            {s:'Windows 98', r:/(Windows 98|Win98)/},
+            {s:'Windows 95', r:/(Windows 95|Win95|Windows_95)/},
+            {s:'Windows NT 4.0', r:/(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/},
+            {s:'Windows CE', r:/Windows CE/},
+            {s:'Windows 3.11', r:/Win16/},
+            {s:'Android', r:/Android/},
+            {s:'Open BSD', r:/OpenBSD/},
+            {s:'Sun OS', r:/SunOS/},
+            {s:'Chrome OS', r:/CrOS/},
+            {s:'Linux', r:/(Linux|X11(?!.*CrOS))/},
+            {s:'iOS', r:/(iPhone|iPad|iPod)/},
+            {s:'Mac OS X', r:/Mac OS X/},
+            {s:'Mac OS', r:/(Mac OS|MacPPC|MacIntel|Mac_PowerPC|Macintosh)/},
+            {s:'QNX', r:/QNX/},
+            {s:'UNIX', r:/UNIX/},
+            {s:'BeOS', r:/BeOS/},
+            {s:'OS/2', r:/OS\/2/},
+            {s:'Search Bot', r:/(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/}
+        ];
+        for (var id in clientStrings) {
+            var cs = clientStrings[id];
+            if (cs.r.test(nAgt)) {
+                os = cs.s;
+                break;
+            }
+        }
+
+        var osVersion = unknown;
+
+        if (/Windows/.test(os)) {
+            osVersion = /Windows (.*)/.exec(os)[1];
+            os = 'Windows';
+        }
+
+        switch (os) {
+            case 'Mac OS':
+            case 'Mac OS X':
+            case 'Android':
+                osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(nAgt)[1];
+                break;
+
+            case 'iOS':
+                osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(nVer);
+                osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
+                break;
+        }
+        
+        // flash (you'll need to include swfobject)
+        /* script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" */
+        var flashVersion = 'no check';
+        if (typeof swfobject != 'undefined') {
+            var fv = swfobject.getFlashPlayerVersion();
+            if (fv.major > 0) {
+                flashVersion = fv.major + '.' + fv.minor + ' r' + fv.release;
+            }
+            else  {
+                flashVersion = unknown;
+            }
+        }
+    }
+
+    window.jscd = {
+        screen: screenSize,
+        browser: browser,
+        browserVersion: version,
+        browserMajorVersion: majorVersion,
+        mobile: mobile,
+        os: os,
+        osVersion: osVersion,
+        cookies: cookieEnabled,
+        flashVersion: flashVersion
+    };
+}(this));
+
+        // alert(
+        //     'OS: ' + jscd.os +' '+ jscd.osVersion + '\n' +
+        //     'Browser: ' + jscd.browser +' '+ jscd.browserMajorVersion +
+        //       ' (' + jscd.browserVersion + ')\n' + 
+        //     'Mobile: ' + jscd.mobile + '\n' +
+        //     'Flash: ' + jscd.flashVersion + '\n' +
+        //     'Cookies: ' + jscd.cookies + '\n' +
+        //     'Screen Size: ' + jscd.screen + '\n\n' +
+        //     'Full User Agent: ' + navigator.userAgent
+        // );
+	
+    </script>
+	
+	<script src="" async defer></script>
 
 </body>
 </html>
