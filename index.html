@@ -49,6 +49,7 @@
 				<p class="text-slate-400 text-sm">Mobile device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isMobile"></span></b></p>
 				<p class="text-slate-400 mt-2 text-sm">Touch device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isTouch"></span></b></p>
 				<p class="text-slate-400 mt-2 text-sm">iOS device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isiOS"></span></b></p>
+				
 				<p class="text-slate-400 mt-2 text-sm">Android device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isAndroid"></span></b></p>
 				<p class="text-slate-400 mt-2 text-sm">Other device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isOther"></span></b></p>
 				
@@ -141,15 +142,17 @@
 			
 			
 			//  IPHONE OR IPAD
-			if ( (navigator.userAgent.match(/iPhone/i)) ) {
+			/* if ( (navigator.userAgent.match(/iPhone/i)) ) {
 				document.querySelector("#isiOS").textContent = `Yes, it's an iPhone`;
 			} else if ( (navigator.userAgent.match(/iPod/i)) ) {
 				document.querySelector("#isiOS").textContent = `Yes, it's an iPod`;
 			} else if ( (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0) || navigator.platform === 'iPad' ) {
-				document.querySelector("#isiOS").textContent = `Yes, it's an iPad`;
+				document.querySelector("#isiOS").textContent = `Yes, it's an iPadAA`;
 			} else {
 
-			}
+			} */
+
+			// document.querySelector("#isiOS2").textContent = navigator.platform;
 
 
 
