@@ -47,7 +47,7 @@
 				<p class="text-slate-400 mt-2 text-sm">iOS device: &nbsp;&nbsp; <b><span class="text-slate-200"id="isiOS"></span></b></p>
 				<p class="text-slate-400 mt-2 text-sm">Android device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isAndroid"></span></b></p>
 				<p class="text-slate-400 mt-2 text-sm">Other device: &nbsp;&nbsp; <b><span class="text-slate-200" id="isOther"></span></b></p>
-				<p class="text-slate-400 mt-2 text-sm">User agent browser:<b><span class="text-slate-200" id="agentBrowser"></span></b></p>
+				<p class="text-slate-400 mt-2 text-sm">User agent browser: &nbsp;&nbsp; <b><span class="text-slate-200" id="agentBrowser"></span></b></p>
 			</div>
 	
 			<div class="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
@@ -57,7 +57,8 @@
 
 			<div class="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
 				<p class="text-slate-400  text-sm">CPU: &nbsp;&nbsp; <br><b><span class="text-slate-200" id="cpu2"></span></b></p>
-				<p class="text-slate-400  text-sm mb-4"><b><span class="text-slate-200" id="cores2"></span></b></p>
+				<p class="text-slate-400  text-sm "><b><span class="text-slate-200" id="cores2"></span></b></p>
+				<p class="text-slate-400  text-sm mb-4"><b><span class="text-slate-200" id="ram2"></span></b></p>
 				<p class="text-slate-400  text-sm mb-4">OS: &nbsp;&nbsp; <br><b><span class="text-slate-200" id="os2"></span></b></p>
 				<p class="text-slate-400  text-sm mb-4">Engine: &nbsp;&nbsp; <br><b><span class="text-slate-200" id="engine2"></span></b></p>
 			</div>
@@ -119,10 +120,10 @@
 			document.querySelector("#isAndroid").textContent = android;
 			document.querySelector("#isOther").textContent = otherBrowser;
 
-			document.querySelector("#device").textContent = device;
+			// document.querySelector("#device").textContent = device;
 			document.querySelector("#agentBrowser").textContent = navigator.userAgent;
 
-			document.querySelector("#test").textContent = iOSssss() + ` version:` + /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+			// document.querySelector("#test").textContent = iOSssss() + ` version:` + /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 
 
@@ -138,13 +139,6 @@
 			} */
 
 			// document.querySelector("#isiOS2").textContent = navigator.platform;
-
-
-
-
-
-
-
 
 
 
@@ -214,7 +208,7 @@
 				osVersion: osVersion
 			};
 
-			document.querySelector("#OsDevice").textContent = `${os}  ${osVersion}`;
+			// document.querySelector("#OsDevice").textContent = `${os}  ${osVersion}`;
 
 
 
@@ -273,6 +267,12 @@
 			document.querySelector('#engine2').innerHTML = Object.entries(engine).map(([key, value]) => `<span class="text-slate-400 mt-2 text-sm">${key}: <b class="text-slate-200">${value}</b></span>`).join('<br>');
 		});
 
+		/*  MEMORY */
+		if (navigator.deviceMemory) {
+			document.querySelector('#ram2').innerHTML = `<span class="text-slate-400 mt-2 text-sm">ram test: <b class="text-slate-200">${navigator.deviceMemory} GB</b></span>`;
+		} else {
+			document.querySelector('#ram2').innerHTML = `<span class="text-slate-400 mt-2 text-sm">ram test: <b class="text-slate-200">No determinado</b></span>`;
+		}
 	</script>
 
 </body>
